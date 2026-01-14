@@ -43,11 +43,11 @@ Technologies: Python 3, Flask, Pickle
 ## Step 5: Connect to GitHub
 
 ```bash
-# Replace YOUR_USERNAME with your GitHub username
-git remote add origin https://github.com/YOUR_USERNAME/pesapal-rdbms-challenge.git
+# Replace with your GitHub username
+git remote add origin https://github.com/ESTHER446-HUB/pesapal-rdbms-challenge.git
 
 # Or use SSH if you have it set up
-git remote add origin git@github.com:YOUR_USERNAME/pesapal-rdbms-challenge.git
+git remote add origin git@github.com:ESTHER446-HUB/pesapal-rdbms-challenge.git
 ```
 
 ## Step 6: Push to GitHub
@@ -89,7 +89,7 @@ git push
 1. Go to Pesapal careers page
 2. Click "Apply Now" for Junior Dev Challenge '26
 3. Fill in the form:
-   - **Repository URL**: https://github.com/YOUR_USERNAME/pesapal-rdbms-challenge
+   - **Repository URL**: https://github.com/ESTHER446-HUB/pesapal-rdbms-challenge
    - **CV**: Upload your CV
    - **Cover Letter** (optional but recommended)
 4. Submit before **23:59:59 EAT on 17th January 2026**
@@ -140,7 +140,7 @@ git push
 git remote -v
 
 # Change remote URL
-git remote set-url origin https://github.com/YOUR_USERNAME/pesapal-rdbms-challenge.git
+git remote set-url origin https://github.com/ESTHER446-HUB/pesapal-rdbms-challenge.git
 ```
 
 ## Pre-Submission Checklist

@@ -250,14 +250,14 @@ This project was built from scratch for the Pesapal Junior Dev Challenge '26. Al
 
 ## Contact
 
-**Name**: [Your Name]
-**Email**: [Your Email]
-**GitHub**: [Your GitHub Profile]
+**Name**: Esther Kuria
+**Email**: esther.kuria@student.moringaschool.com
+**GitHub**: https://github.com/ESTHER446-HUB
 **LinkedIn**: [Your LinkedIn Profile]
 
 ## Repository
 
-This project is available at: [Your GitHub Repo URL]
+This project is available at: https://github.com/ESTHER446-HUB/pesapal-rdbms-challenge
 
 ## License
 

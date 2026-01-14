@@ -219,9 +219,9 @@ MIT License - Feel free to use this for learning purposes.
 
 ## Author
 
-[Your Name]
-[Your GitHub Profile]
-[Your Email]
+Esther Kuria
+https://github.com/ESTHER446-HUB
+esther.kuria@student.moringaschool.com
 
 ---
 
