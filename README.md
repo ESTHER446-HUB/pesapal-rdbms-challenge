@@ -1,63 +1,62 @@
 # Simple RDBMS - Pesapal Junior Dev Challenge '26
 
-A lightweight relational database management system (RDBMS) built from scratch in Python, featuring SQL-like query support, indexing, and a web application demo.
+A relational database management system built from scratch in Python. This project implements core database features including SQL parsing, indexing, constraints, and persistence, plus a web demo to show it all working.
+
+## What It Does
+
+This is a working database system that lets you:
+- Create tables with different data types
+- Insert, update, delete, and query data
+- Use SQL commands (or something very close to SQL)
+- Enforce primary keys and unique constraints
+- Join tables together
+- Save and load your database from disk
+- Interact through a command-line REPL or a web interface
 
 ## Features
 
-### Core RDBMS Capabilities
-- **SQL Parser**: Supports CREATE TABLE, INSERT, SELECT, UPDATE, DELETE, DROP TABLE
-- **Data Types**: INT, FLOAT, VARCHAR(n), BOOLEAN
-- **Constraints**: PRIMARY KEY, UNIQUE, NOT NULL
-- **Indexing**: B-tree indexing for primary and unique keys
-- **Joins**: INNER JOIN support
-- **REPL**: Interactive command-line interface
-- **Persistence**: Save/load database to disk using pickle
+**Core Database:**
+- SQL-like commands: CREATE TABLE, INSERT, SELECT, UPDATE, DELETE, DROP TABLE
+- Data types: INT, FLOAT, VARCHAR(n), BOOLEAN
+- Constraints: PRIMARY KEY, UNIQUE, NOT NULL
+- B-tree indexing for fast lookups on primary/unique keys
+- INNER JOIN support
+- WHERE clause filtering
+- Save/load database to disk
 
-### Web Application Demo
-- Task management system with users and tasks
-- Full CRUD operations via REST API
-- JOIN query demonstration
-- Clean, responsive UI
+**Web Demo:**
+- Simple task manager showing users and tasks
+- REST API with full CRUD operations
+- Clean web interface
+- Live demonstration of JOIN queries
 
-## Architecture
-
-### Components
-
-1. **Column**: Defines table columns with data types and constraints
-2. **BTreeIndex**: Simple B-tree implementation for fast lookups
-3. **Table**: Manages rows, enforces constraints, handles CRUD operations
-4. **Database**: Container for multiple tables
-5. **SQLParser**: Parses and executes SQL-like statements
-6. **REPL**: Interactive shell for database operations
-
-### Design Decisions
-
-- **In-memory storage** with disk persistence for simplicity
-- **B-tree indexing** on primary/unique keys for O(log n) lookups
-- **Row-based storage** suitable for OLTP workloads
-- **Regex-based SQL parsing** for lightweight implementation
-- **Pickle serialization** for easy persistence
-
-## Installation
+## Quick Start
 
 ```bash
-# Clone the repository
-git clone <your-repo-url>
-cd PESAPAL
-
-# Install dependencies
+# Install Flask
 pip install -r requirements.txt
+
+# Run the tests
+python3 test_rdbms.py
+
+# Try the interactive shell
+python3 rdbms.py
+
+# Or start the web app
+python3 app.py
+# Then visit http://localhost:5000
 ```
 
-## Usage
+## Using the REPL
 
-### Interactive REPL
+The REPL (Read-Eval-Print Loop) is an interactive shell where you can type SQL commands directly.
 
+Start it with:
 ```bash
-python rdbms.py
+python3 rdbms.py
 ```
 
-Example session:
+Then try some commands:
 ```sql
 rdbms> CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(100), email VARCHAR(100) UNIQUE)
 Table users created
@@ -81,30 +80,32 @@ Database saved to mydb.db
 rdbms> .exit
 ```
 
-### REPL Commands
-- `.exit` - Exit the REPL
-- `.save <filename>` - Save database to file
-- `.load <filename>` - Load database from file
-- `.tables` - List all tables
+**Special commands:**
+- `.exit` - quit the REPL
+- `.save <filename>` - save your database to a file
+- `.load <filename>` - load a database from a file
+- `.tables` - see all your tables
 
-### Web Application
+## Using the Web App
+
+The web app is a simple task manager that demonstrates the database in action.
 
 ```bash
-python app.py
+python3 app.py
 ```
 
-Visit `http://localhost:5000` in your browser.
+Open your browser to `http://localhost:5000` and you can:
+- Add users (with unique emails)
+- Create tasks assigned to users
+- Mark tasks as complete
+- Delete users and tasks
+- See a JOIN query showing which user has which tasks
 
-The web app demonstrates:
-- Creating users with unique emails
-- Creating tasks assigned to users
-- Updating task completion status
-- Deleting users and tasks
-- JOIN queries showing users with their tasks
+## SQL Commands
 
-## SQL Syntax
+Here's what SQL you can write:
 
-### CREATE TABLE
+**Create a table:**
 ```sql
 CREATE TABLE table_name (
     column1 datatype [PRIMARY KEY] [UNIQUE] [NOT NULL],
@@ -112,40 +113,56 @@ CREATE TABLE table_name (
 )
 ```
 
-### INSERT
+**Add data:**
 ```sql
 INSERT INTO table_name (col1, col2) VALUES (val1, val2)
 ```
 
-### SELECT
+**Query data:**
 ```sql
 SELECT * FROM table_name
 SELECT col1, col2 FROM table_name WHERE col1=value
 SELECT * FROM table1 JOIN table2 ON table1.col=table2.col
 ```
 
-### UPDATE
+**Update data:**
 ```sql
 UPDATE table_name SET col1=val1, col2=val2 WHERE condition
 ```
 
-### DELETE
+**Delete data:**
 ```sql
 DELETE FROM table_name WHERE condition
 ```
 
-### DROP TABLE
+**Remove a table:**
 ```sql
 DROP TABLE table_name
 ```
 
+## How I Built It
+
+The database is built in layers:
+
+1. **Storage layer** - Rows are stored in memory as Python dictionaries. Each table keeps a list of rows.
+
+2. **Indexing** - Primary keys and unique columns get automatic B-tree indexes (well, Python dicts that act like B-trees) for fast lookups.
+
+3. **Schema enforcement** - The Column class validates data types and checks constraints before any data gets saved.
+
+4. **SQL parsing** - A regex-based parser breaks down SQL commands and calls the right methods. Not fancy, but it works.
+
+5. **Persistence** - The whole database serializes to disk using pickle. Simple and effective for this use case.
+
 ## Testing
 
-Manual testing via REPL:
+I wrote a test suite that covers the main features:
 
 ```bash
-python rdbms.py
+python3 test_rdbms.py
 ```
+
+You can also test manually in the REPL:
 
 ```sql
 -- Test table creation
@@ -169,45 +186,50 @@ DELETE FROM products WHERE id=2
 INSERT INTO products (id, name, price) VALUES (1, 'Keyboard', 79.99)
 ```
 
-## Limitations & Future Improvements
+## What's Missing
 
-### Current Limitations
-- Single-threaded (no concurrent access)
-- No transaction support (ACID properties)
-- Limited WHERE clause parsing (no AND/OR)
-- No aggregate functions (COUNT, SUM, AVG)
-- No ORDER BY, GROUP BY, LIMIT
-- No foreign key constraints
-- Simple B-tree (not optimized)
+This is a learning project, so there are some things I didn't implement:
 
-### Potential Improvements
-- Multi-threading with locks
-- Transaction support with rollback
-- Query optimizer
-- More SQL features (subqueries, views, stored procedures)
-- Better indexing (B+ trees, hash indexes)
-- Query caching
-- Connection pooling for web app
-- Comprehensive test suite
+- **No concurrent access** - Only one person can use it at a time
+- **No transactions** - No COMMIT/ROLLBACK
+- **Simple WHERE clauses** - Can't do AND/OR yet
+- **No aggregate functions** - No COUNT, SUM, AVG, etc.
+- **No ORDER BY or LIMIT**
+- **Only INNER JOIN** - No LEFT/RIGHT/OUTER joins
 
-## Project Structure
+But hey, it works for what it is!
+
+## What I'd Add Next
+
+If I keep working on this:
+- AND/OR in WHERE clauses
+- ORDER BY and LIMIT
+- Aggregate functions
+- Better error messages
+- Transaction support
+- More join types
+- Query optimization
+
+## Project Files
 
 ```
 PESAPAL/
-├── rdbms.py           # Core RDBMS implementation
-├── app.py             # Flask web application
+├── rdbms.py           # The main database engine
+├── app.py             # Flask web app
+├── test_rdbms.py      # Test suite
 ├── templates/
-│   └── index.html     # Web UI
-├── requirements.txt   # Python dependencies
-└── README.md          # This file
+│   └── index.html     # Web interface
+├── requirements.txt   # Just Flask, really
+└── README.md          # You're reading it
 ```
 
-## Technologies Used
+## Tech Stack
 
-- **Python 3**: Core language
-- **Flask**: Web framework
-- **Pickle**: Serialization
-- **Regex**: SQL parsing
+- Python 3 (the whole thing)
+- Flask (for the web demo)
+- Pickle (for saving to disk)
+- Regex (for parsing SQL)
+- No external database libraries - that would defeat the point!
 
 ## Acknowledgments
 
@@ -225,4 +247,4 @@ esther.kuria@student.moringaschool.com
 
 ---
 
-**Note**: This is an educational project demonstrating RDBMS concepts. It is not production-ready and should not be used for real applications requiring reliability, security, or performance.
+**Note**: This is an educational project. Don't use it for anything important - it's meant to demonstrate concepts, not to be production-ready.
